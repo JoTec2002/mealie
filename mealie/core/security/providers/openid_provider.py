@@ -98,7 +98,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
     def required_claims(self):
         settings = get_app_settings()
 
-        claims = {"email", settings.OIDC_USER_CLAIM}
+        claims = {settings.OIDC_NAME_CLAIM, "email", settings.OIDC_USER_CLAIM}
         if settings.OIDC_REQUIRES_GROUP_CLAIM:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
