@@ -66,12 +66,11 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 username = claims.get(
                     "preferred_username", claims.get("username", claims.get(settings.OIDC_USER_CLAIM))
                 )
-                name = claims.get("name", username)
                 user = repos.users.create(
                     {
                         "username": username,
                         "password": "OIDC",
-                        "full_name": name,
+                        "full_name": claims.get(settings.OIDC_NAME_CLAIM),
                         "email": claims.get("email"),
                         "admin": is_admin,
                         "auth_method": AuthMethod.OIDC,
